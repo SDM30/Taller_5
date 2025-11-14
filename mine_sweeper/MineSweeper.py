@@ -70,7 +70,7 @@ if __name__ == '__main__':
   elif board.have_lose( ):
     print( "You lose :-(" )
   # end if
-  print( f"Jugadas realizadas: {board.play_count( )}" )
+  print( f"Plays made: {board.play_count( )}" )
   print( '====================================================' )
 
 # end if

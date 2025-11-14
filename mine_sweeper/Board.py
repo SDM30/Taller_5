@@ -9,22 +9,13 @@ import random
 import csv
 import os
 
-"""
-Clase que representa el tablero del juego Buscaminas.
-"""
 class Board:
 
-  '''
-  Atributos
-  '''
   m_Patches       = None
   m_Mines         = None
   m_NumberOfMines = 0
   m_Explosion     = False
 
-  '''
-  Constructor
-  '''
   def __init__( self, w, h, n, record_play_data = True ):
     self.m_Patches = [ [ False for j in range( h ) ] for i in range( w ) ]
     self.m_Mines = [ [ 0 for j in range( h ) ] for i in range( w ) ]
@@ -34,17 +25,15 @@ class Board:
     self.m_PlayDataWritten = False
     self.m_RecordPlayData = record_play_data
     self.m_PlayCount = 0
-    self.m_SafeReveals = 0
-    self.m_TotalSafeCells = ( w * h ) - n
 
-    # Escoger posiciones para las minas
+    # Randomly choose mine locations
     t = [ i for i in range( w * h ) ]
     random.shuffle( t )
     for i in t[ 0: n ]:
       self.m_Mines[ int( i / w ) ][ i % w ] = 9
     # end for
 
-    # Llenar las demás celdas con el número de minas vecinas
+    # Fill the remaining cells with the count of neighboring mines
     for i in range( len( self.m_Mines ) ):
       for j in range( len( self.m_Mines[ i ] ) ):
         if self.m_Mines[ i ][ j ] == 0:
@@ -143,8 +132,6 @@ class Board:
           new_reveal = True
         if new_reveal:
           self._record_play( i, j )
-          if self.m_Mines[ i ][ j ] < 9:
-            self.m_SafeReveals += 1
         if self.m_Mines[ i ][ j ] == 9:
           self.m_Explosion = True
           self.m_Patches = [ [ True for j in range( self.height( ) ) ] for i in range( self.width( ) ) ]
@@ -182,11 +169,11 @@ class Board:
     filename_x = f'game_x.csv'
     filename_y = f'game_y.csv'
 
-    # Verificar si los archivos existen (para evitar escribir encabezados varias veces)
+    # Check if files already exist to avoid writing duplicated headers
     file_exists_x = os.path.exists(filename_x)
     file_exists_y = os.path.exists(filename_y)
 
-    # Guardar X (vecindades)
+    # Save X (neighbor configurations)
     with open(filename_x, 'a', newline='') as fx:
       writer_x = csv.writer(fx)
       if not file_exists_x:
@@ -195,7 +182,7 @@ class Board:
         neighbors = play[3]
         writer_x.writerow(neighbors)
 
-    # Guardar Y (si encontró mina o no)
+    # Save Y (whether a mine was found)
     with open(filename_y, 'a', newline='') as fy:
       writer_y = csv.writer(fy)
       if not file_exists_y:
@@ -210,14 +197,6 @@ class Board:
 
   def play_count( self ):
     return self.m_PlayCount
-  # end def
-
-  def safe_reveals( self ):
-    return self.m_SafeReveals
-  # end def
-
-  def total_safe_cells( self ):
-    return self.m_TotalSafeCells
   # end def
 
 # end class

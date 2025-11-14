@@ -17,7 +17,7 @@ def run_game(cmd, cwd):
     output = completed.stdout
 
     plays = 0
-    marker = "Jugadas realizadas:"
+    marker = "Plays made:"
     idx = output.rfind(marker)
     if idx != -1:
         line = output[idx + len(marker):].splitlines()[0].strip()
