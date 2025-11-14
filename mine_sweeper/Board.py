@@ -33,6 +33,9 @@ class Board:
     self.m_PlayHistory = []
     self.m_PlayDataWritten = False
     self.m_RecordPlayData = record_play_data
+    self.m_PlayCount = 0
+    self.m_SafeReveals = 0
+    self.m_TotalSafeCells = ( w * h ) - n
 
     # Escoger posiciones para las minas
     t = [ i for i in range( w * h ) ]
@@ -133,12 +136,15 @@ class Board:
       if i < 0 or j < 0 or i >= self.width( ) or j >= self.height( ):
         return 0
       else:
+        self.m_PlayCount += 1
         new_reveal = False
         if not self.m_Patches[ i ][ j ]:
           self.m_Patches[ i ][ j ] = True
           new_reveal = True
         if new_reveal:
           self._record_play( i, j )
+          if self.m_Mines[ i ][ j ] < 9:
+            self.m_SafeReveals += 1
         if self.m_Mines[ i ][ j ] == 9:
           self.m_Explosion = True
           self.m_Patches = [ [ True for j in range( self.height( ) ) ] for i in range( self.width( ) ) ]
@@ -146,6 +152,7 @@ class Board:
           self.save_play_data( )
         return self.m_Mines[ i ][ j ]
     else:
+      self.m_PlayCount += 1
       return self.m_Mines[ i ][ j ]
   # end def
   
@@ -199,6 +206,18 @@ class Board:
         writer_y.writerow([y])
 
     self.m_PlayDataWritten = True
+  # end def
+
+  def play_count( self ):
+    return self.m_PlayCount
+  # end def
+
+  def safe_reveals( self ):
+    return self.m_SafeReveals
+  # end def
+
+  def total_safe_cells( self ):
+    return self.m_TotalSafeCells
   # end def
 
 # end class

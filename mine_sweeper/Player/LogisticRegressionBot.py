@@ -64,14 +64,18 @@ class Player:
 
     # Choose a play usando el modelo
     if len( self.m_Plays ) > 0:
-      return self._choose_from_candidates( self.m_Plays )
-    else:
-      candidates = self._collect_frontier_cells( )
-      if len( candidates ) > 0:
-        return self._choose_from_candidates( list( candidates ) )
-      # Si no hay frontera conocida, volver a elegir al azar
-      return self._random_unknown_cell( )
+      filtered = [ cell for cell in self.m_Plays if not self.m_Marks[ cell[ 0 ] ][ cell[ 1 ] ] ]
+      if len( filtered ) > 0:
+        return self._choose_from_candidates( filtered )
+      else:
+        self.m_Plays = []
     # end if
+
+    candidates = self._collect_frontier_cells( )
+    if len( candidates ) > 0:
+      return self._choose_from_candidates( list( candidates ) )
+    # Si no hay frontera conocida, volver a elegir al azar
+    return self._random_unknown_cell( )
   # end def
 
   '''
