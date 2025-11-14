@@ -168,9 +168,8 @@ class Board:
     if len(self.m_PlayHistory) == 0:
       return
 
-    status = 'win' if self.have_won() else 'lose'
-    filename_x = f'game_{status}_x.csv'
-    filename_y = f'game_{status}_y.csv'
+    filename_x = f'game_x.csv'
+    filename_y = f'game_y.csv'
 
     # Verificar si los archivos existen (para evitar escribir encabezados varias veces)
     file_exists_x = os.path.exists(filename_x)
