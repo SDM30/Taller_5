@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
   if len( sys.argv ) < 5:
     print(
-      "Usage: python3", sys.argv[ 0 ], "width height mines player <arguments>"
+      "Usage: python3", sys.argv[ 0 ], "width height mines player [--record-data] <player arguments>"
       )
     sys.exit( 1 )
   # end if
@@ -39,13 +39,20 @@ if __name__ == '__main__':
   h = int( sys.argv[ 2 ] )
   m = int( sys.argv[ 3 ] )
   player_fname = sys.argv[ 4 ]
+  player_args = sys.argv[ 5 : ]
+
+  record_play_data = False
+  if '--record-data' in player_args:
+    record_play_data = True
+    player_args = [ arg for arg in player_args if arg != '--record-data' ]
+  # end if
 
   # Load player
   player_lib = ImportLibrary( 'Player', player_fname )
-  player = player_lib.Player( sys.argv[ 5 : ] )
+  player = player_lib.Player( player_args )
 
   # Create board
-  board = Board( w, h, m )
+  board = Board( w, h, m, record_play_data = record_play_data )
 
   # Play!
   while not board.have_finished( ):

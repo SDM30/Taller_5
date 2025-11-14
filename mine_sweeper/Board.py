@@ -25,13 +25,14 @@ class Board:
   '''
   Constructor
   '''
-  def __init__( self, w, h, n ):
+  def __init__( self, w, h, n, record_play_data = True ):
     self.m_Patches = [ [ False for j in range( h ) ] for i in range( w ) ]
     self.m_Mines = [ [ 0 for j in range( h ) ] for i in range( w ) ]
     self.m_NumberOfMines = n
     self.m_Explosion = False
     self.m_PlayHistory = []
     self.m_PlayDataWritten = False
+    self.m_RecordPlayData = record_play_data
 
     # Escoger posiciones para las minas
     t = [ i for i in range( w * h ) ]
@@ -168,7 +169,7 @@ class Board:
   # end def
 
   def save_play_data(self):
-    if len(self.m_PlayHistory) == 0:
+    if not self.m_RecordPlayData or len(self.m_PlayHistory) == 0:
       return
 
     filename_x = f'game_x.csv'
