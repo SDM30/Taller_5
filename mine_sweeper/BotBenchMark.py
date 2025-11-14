@@ -1,3 +1,8 @@
+## =========================================================================
+## @author Simon Díaz Monroy (simondiaz@javeriana.edu.co)
+## @author Katheryn Sofia Guasca Chavarro (ksofia.guasca@javeriana.edu.co)
+## =========================================================================
+
 import csv
 import os
 import subprocess

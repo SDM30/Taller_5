@@ -1,7 +1,9 @@
 ## =========================================================================
 ## @author Leonardo Florez-Valencia (florez-l@javeriana.edu.co)
+## Modified By:
+## @author Simon Díaz Monroy (simondiaz@javeriana.edu.co)
+## @author Katheryn Sofia Guasca Chavarro (katheryn.guascar@javeriana.edu.co)
 ## =========================================================================
-
 import importlib.util, sys
 from Board import *
 
