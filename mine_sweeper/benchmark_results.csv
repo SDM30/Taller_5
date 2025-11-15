@@ -1,8 +1,8 @@
 Tipo de jugador,LogisticRegressionBot
-numero de pruebas,numero de jugadas,derrotas,victorias
-400,15120,395,5
+numero de pruebas,numero de jugadas,derrotas,victorias,accuracy_promedio,precision_promedio
+400,14364,395,5,0.9490999999999918,0.0
 
 Tipo de jugador,RandomBot
-numero de pruebas,numero de jugadas,derrotas,victorias
-400,4406,400,0
+numero de pruebas,numero de jugadas,derrotas,victorias,accuracy_promedio,precision_promedio
+400,4089,400,0,,
 

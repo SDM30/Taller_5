@@ -10,6 +10,7 @@ import random
 
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, precision_score
 
 """
 """
@@ -29,7 +30,10 @@ class Player:
   '''
   '''
   def __init__( self, args ):
+    self.m_ModelAccuracy = None
+    self.m_ModelPrecision = None
     self.brain = self.train_model()
+    self._print_model_metrics()
     self.m_Plays = []
     self.m_RevealedValues = {}
   # end def
@@ -46,6 +50,9 @@ class Player:
     # Max number of iterations to find the model coefficients
     model = LogisticRegression(max_iter=500)
     model.fit(X, y)
+    y_pred = model.predict(X)
+    self.m_ModelAccuracy = accuracy_score( y, y_pred )
+    self.m_ModelPrecision = precision_score( y, y_pred, zero_division = 0 )
     return model
 
   '''
@@ -185,6 +192,15 @@ class Player:
     if len( unknown ) == 0:
       return ( 0, 0 )
     return random.choice( unknown )
+  # end def
+
+  '''
+  '''
+  def _print_model_metrics( self ):
+    if self.m_ModelAccuracy is not None:
+      print( f"[LogisticRegressionBot] Accuracy: {self.m_ModelAccuracy:.4f}" )
+    if self.m_ModelPrecision is not None:
+      print( f"[LogisticRegressionBot] Precision: {self.m_ModelPrecision:.4f}" )
   # end def
 
 # end class
