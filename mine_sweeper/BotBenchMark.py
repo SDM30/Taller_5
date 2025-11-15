@@ -8,7 +8,7 @@ import os
 import subprocess
 import sys
 
-GAME_CMD = ["python3", "MineSweeper.py", "8", "8", "10"]
+GAME_CMD = ["python3", "MineSweeper.py", "8", "8", "5"]
 PLAYERS = [
     ("LogisticRegressionBot", "Player/LogisticRegressionBot.py"),
     ("RandomBot", "Player/Random.py"),

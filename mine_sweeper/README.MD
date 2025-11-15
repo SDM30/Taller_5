@@ -21,5 +21,7 @@
 ```console
     Usage: python3 BotBenchMark.py number_tests
 ```
-* Ejemplo: El precargado con el repositorio tiene 200 pruebas
-python BotBenchMark.py 10
+* Ejemplo: El precargado con el repositorio tiene 400 pruebas
+```console
+    Usage: python BotBenchMark.py 10
+```
